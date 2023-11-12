@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Card Quiz App</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="quiz-container">
+    <h1>Card Quiz</h1>
+    <div class="question-container">
+      <p class="question-text">Question goes here</p>
+      <input type="text" id="user-answer" placeholder="Your answer">
+      <button onclick="checkAnswer()">Check Answer</button>
+    </div>
+  </div>
+
+  <script>
+    async function fetchQuestions() {
+      const response = await fetch('/api/questions');
+      const data = await response.json();
+      return data;
+    }
+
+    async function loadQuestion() {
+      const questions = await fetchQuestions();
+    
+      document.querySelector('.question-text').textContent = questions[0].question;
+    }
+
+    function checkAnswer() {
+      const userAnswer = document.getElementById('user-answer').value;
+     
+      alert(`Your answer is: ${userAnswer}`);
+    }
+
+    loadQuestion();
+  </script>
+</body>
+</html>
